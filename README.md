@@ -1,5 +1,5 @@
 # Automating Hybrid Applications with Appium
-This repository will hold the apps and exercises for the workshop **Automating Hybrid Applications with Appium**.
+This repository will hold the apps and assignments for the workshop **Automating Hybrid Applications with Appium**.
 
 ## Introduction:
 During this workshop we will dive into the mysterious world of automating Hybrid Apps with Appium by using a demo 
@@ -162,3 +162,29 @@ Execution of 1 workers started at 2021-05-26T08:40:52.953Z
 
 Spec Files:      1 passed, 1 total (100% completed) in 00:00:16
 ```
+
+
+## Assignments
+All assignments can be found in [this](./tests/specs/assignments)-folder. Every assignment also has an answer. The 
+answers can be found in [this](./tests/specs/answers)-folder.
+
+> **NOTE:** Yes you are able to cheat, but I leave it up to you on how you want to learn
+
+### Assignment One: WebView vs. Native View
+In this assignment we are going to look at *the ease of selecting elements in a WebView*. The assignment can be found
+here [`./tests/specs/assignments/assignment.one.spec.js`](./tests/specs/assignments/assignment.one.spec.js).
+
+Open the file in your editor and follow the instructions. If you want to run the test then open a terminal and execute
+the following script(s)
+
+    # Android:
+      npm run android.assignment.one
+    # iOS (if you have a Mac):
+      npm run ios.assignment.one
+
+if you want to run the answers then execute the following script(s) in the terminal
+
+    # Android:
+      npm run android.answers.one
+    # iOS (if you have a Mac):
+      npm run ios.answers.one
