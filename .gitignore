@@ -1,0 +1,17 @@
+# OSX
+#
+.DS_Store
+
+# Android/IntelliJ
+#
+build/
+.idea
+
+# node.js
+#
+node_modules/
+
+# Extra
+.tmp
+.env
+*.log
