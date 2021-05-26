@@ -188,3 +188,22 @@ if you want to run the answers then execute the following script(s) in the termi
       npm run android.answers.one
     # iOS (if you have a Mac):
       npm run ios.answers.one
+
+### Assignment Two: The Full Potential of WebViews
+In this assignment we are going to look at *the Full Potential of WebViews*. The assignment can be found here 
+[`./tests/specs/assignments/assignment.two.spec.js`](./tests/specs/assignments/assignment.two.spec.js).
+
+Open the file in your editor and follow the instructions. If you want to run the test then open a terminal and execute
+the following script(s)
+
+    # Android:
+      npm run android.assignment.two
+    # iOS (if you have a Mac):
+      npm run ios.assignment.two
+
+if you want to run the answers then execute the following script(s) in the terminal
+
+    # Android:
+      npm run android.answers.two
+    # iOS (if you have a Mac):
+      npm run ios.answers.two

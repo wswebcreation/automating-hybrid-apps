@@ -5,10 +5,14 @@
   "main": "index.js",
   "scripts": {
     "android.assignment.one": "AUTOWEBVIEW=true npx wdio ./tests/configs/wdio.android.local.emu.conf.js --spec=./tests/specs/assignments/assignment.one.spec.js",
+    "android.assignment.two": "AUTOWEBVIEW=true npx wdio ./tests/configs/wdio.android.local.emu.conf.js --spec=./tests/specs/assignments/assignment.two.spec.js",
     "android.answers.one": "AUTOWEBVIEW=true npx wdio ./tests/configs/wdio.android.local.emu.conf.js --spec=./tests/specs/answers/assignment.one.spec.js",
+    "android.answers.two": "AUTOWEBVIEW=true npx wdio ./tests/configs/wdio.android.local.emu.conf.js --spec=./tests/specs/answers/assignment.two.spec.js",
     "android.native": "npx wdio ./tests/configs/wdio.android.local.emu.conf.js --spec=./tests/specs/android.native.spec.js",
     "ios.assignment.one": "AUTOWEBVIEW=true npx wdio ./tests/configs/wdio.ios.local.sim.conf.js --spec=./tests/specs/assignments/assignment.one.spec.js",
+    "ios.assignment.two": "AUTOWEBVIEW=true npx wdio ./tests/configs/wdio.ios.local.sim.conf.js --spec=./tests/specs/assignments/assignment.two.spec.js",
     "ios.answers.one": "AUTOWEBVIEW=true npx wdio ./tests/configs/wdio.ios.local.sim.conf.js --spec=./tests/specs/answers/assignment.one.spec.js",
+    "ios.answers.two": "AUTOWEBVIEW=true npx wdio ./tests/configs/wdio.ios.local.sim.conf.js --spec=./tests/specs/answers/assignment.two.spec.js",
     "ios.native": "npx wdio ./tests/configs/wdio.ios.local.sim.conf.js --spec=./tests/specs/ios.native.spec.js"
   },
   "repository": {
