@@ -1,6 +1,9 @@
 # Automating Hybrid Applications with Appium
 This repository will hold the apps and assignments for the workshop **Automating Hybrid Applications with Appium**.
 
+> **NOTE:** If you already cloned this repo, then you can use the following command `git pull` to make sure you have
+> the latest code on your machine.
+
 ## Introduction:
 During this workshop we will dive into the mysterious world of automating Hybrid Apps with Appium by using a demo 
 Hybrid app which can be found [here](./apps/).\
@@ -72,9 +75,6 @@ To make sure everything is working you can execute the following steps:
 this project. Then copy paste the following command in that terminal
 
         git clone https://github.com/wswebcreation/automating-hybrid-apps.git
-
-    > **NOTE:** The assignments will be added later. To update the locally cloned repository you can open a terminal,
-     go to the project folder and execute the following command `git pull`. This will get the latest code on your machine.
 
 - then go into the directory with the following command
 
