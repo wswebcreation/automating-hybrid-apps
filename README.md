@@ -207,3 +207,22 @@ if you want to run the answers then execute the following script(s) in the termi
       npm run android.answers.two
     # iOS (if you have a Mac):
       npm run ios.answers.two
+
+### Assignment Three: (Complex) WebView Use Cases
+In this assignment we are going to look at more complex WebView use cases. The assignment can be found here 
+[`./tests/specs/assignments/assignment.three.spec.js`](./tests/specs/assignments/assignment.three.spec.js).
+
+Open the file in your editor and follow the instructions. If you want to run the test then open a terminal and execute
+the following script(s)
+
+    # Android:
+      npm run android.assignment.three
+    # iOS (if you have a Mac):
+      npm run ios.assignment.three
+
+if you want to run the answers then execute the following script(s) in the terminal
+
+    # Android:
+      npm run android.answers.three
+    # iOS (if you have a Mac):
+      npm run ios.answers.three
