@@ -53,67 +53,69 @@
  *    You should now see that the testcase(s) are running and will log and execute the test(s) in the correct context.
  *    When done, change `it.only` back to `it.skip`
  */
-import {logWebViews, switchToWebView} from '../helpers/WebView';
+import { logWebViews, switchToWebView } from '../helpers/WebView';
 
 describe('A hybrid app with multiple webviews', () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     // We always need to start in the native context to be able to press the tab bar buttons
-    driver.switchContext('NATIVE_APP');
+    await driver.switchContext('NATIVE_APP');
   });
 
   // @TODO: as mentioned above, change `it.skip` to `it.only` if you only want to run this test
-  it.skip('should fail on Android to switch to the correct active Sauce Labs context when we try to verify page titles', () => {
+  it.skip('should fail on Android to switch to the correct active Sauce Labs context when we try to verify page titles', async () => {
     /**
      * BAD PRACTICE!!!! We need to make sure the WebView is loaded and I don't
      * want to make it too complex for this testcase
      */
-    driver.pause(5000);
+    await driver.pause(5000);
 
     // This method will wait until a condition becomes true. In our case we want
     // See https://webdriver.io/docs/api/browser/waitUntil/
-    driver.waitUntil(
+    await driver.waitUntil(
       // Wait until we have at least 2 context, so at least a native and a WebView context
-      () => driver.getContexts().length > 1,
+      async () => (await driver.getContexts()).length > 1,
       {
         timeout: 15000,
-        timeoutMsg: 'Not more than one context was loaded in the expected time.'
+        timeoutMsg:
+          'Not more than one context was loaded in the expected time.',
       }
     );
 
     // Now switch to the WebView context, we will take the last because as
     // mentioned for iOS we can have multiple webviews
-    driver.switchContext(driver.getContexts().pop());
+    await driver.switchContext(await driver.getContexts().pop());
 
     // Now expect that the first menu item will contain the text Swag Labs from the Swag Labs Webview
-    expect(driver.getTitle()).toContain('Swag Labs');
+    await expect(await driver.getTitle()).toContain('Swag Labs');
 
     /// Switch back to the native context to be able to go to a new WebView
-    driver.switchContext('NATIVE_APP');
-    $('~test-sauce-labs').click();
+    await driver.switchContext('NATIVE_APP');
+    await $('~test-sauce-labs').click();
 
     /**
      * BAD PRACTICE!!!! We need to make sure the WebView is loaded and I don't
      * want to make it too complex for this testcase
      */
-    driver.pause(5000);
+    await driver.pause(5000);
 
     // This method will wait until a condition becomes true. In our case we want
     // See https://webdriver.io/docs/api/browser/waitUntil/
-    driver.waitUntil(
+    await driver.waitUntil(
       // Wait until we have at least 2 context, so at least a native and a WebView context
-      () => driver.getContexts().length > 1,
+      async () => (await driver.getContexts()).length > 1,
       {
         timeout: 15000,
-        timeoutMsg: 'Not more than one context was loaded in the expected time.'
+        timeoutMsg:
+          'Not more than one context was loaded in the expected time.',
       }
     );
 
     // Now switch to the WebView context, we will take the last because as
     // mentioned for iOS we can have multiple webviews
-    driver.switchContext(driver.getContexts().pop());
+    await driver.switchContext((await driver.getContexts()).pop());
 
     // Now expect that the first menu item will contain the text `Cross Browser Testing` from the Sauce Labs Webview
-    expect(driver.getTitle()).toContain('Cross Browser Testing');
+    await expect(await driver.getTitle()).toContain('Cross Browser Testing');
 
     // For Android you will get an error like this
     // [emulator-5554 Android 10 #0-0] 1) A hybrid app with multiple webviews should fail to switch to the Sauce Labs context when we try to verify a menu item
@@ -124,81 +126,85 @@ describe('A hybrid app with multiple webviews', () => {
   });
 
   // @TODO: as mentioned above, change `it.skip` to `it.only` if you only want to run this test
-  it.skip('should be able to log all the WebViews', () => {
+  it.skip('should be able to log all the WebViews', async () => {
     /**
      * NOTE:
      * The `$('~selector')` used below is a simplified way for WebdriverIO to
      * find elements by accessibilityId on Android and iOS in the
      * native context
      */
-    logWebViews('Swag Labs');
+    await logWebViews('Swag Labs');
 
     // Now open the Sauce Labs WebView
-    $('~test-sauce-labs').click();
+    await $('~test-sauce-labs').click();
     logWebViews('Sauce Labs');
 
     // Now open the Open Source WebView
-    $('~test-open-source').click();
-    logWebViews('Open Source');
+    await $('~test-open-source').click();
+    await logWebViews('Open Source');
   });
 
   // @TODO: as mentioned above, change `it.skip` to `it.only` if you only want to run this test
-  it.only('should be able to switch to the Sauce Demo context and verify an error message', () => {
+  it.skip('should be able to switch to the Sauce Demo context and verify an error message', async () => {
     // Make sure that we open the Sauce Labs WebView
-    $('~test-swag-labs').click();
+    await $('~test-swag-labs').click();
 
     // @TODO: Add or the title or the url here as a property and run this testcase
     // @TODO: By using the title of the page
-    // @TODO:    switchToWebView({title:'(partial) title of the page'});
+    // @TODO:    await switchToWebView({title:'(partial) title of the page'});
     // @TODO: By using the url of the page
-    // @TODO:    switchToWebView({url:'https://www.example.com'});
+    // @TODO:    await switchToWebView({url:'https://www.example.com'});
 
     // Wait for the login button to appear and click on it
-    $('.btn_action').waitForDisplayed();
-    $('.btn_action').click();
+    await $('.btn_action').waitForDisplayed();
+    await $('.btn_action').click();
 
     // Wait for the error text and verify it
-    $('[data-test="error"]').waitForDisplayed();
-    expect($('[data-test="error"]').getText()).toContain('Username is required');
+    await $('[data-test="error"]').waitForDisplayed();
+    await expect(await $('[data-test="error"]').getText()).toContain(
+      'Username is required'
+    );
   });
 
   // @TODO: as mentioned above, change `it.skip` to `it.only` if you only want to run this test
-  it.skip('should be able to switch to the Sauce Labs context to see if we can verify a menu item', () => {
+  it.skip('should be able to switch to the Sauce Labs context to see if we can verify a menu item', async () => {
     // Open the Sauce Labs WebView
-    $('~test-sauce-labs').click();
+    await $('~test-sauce-labs').click();
 
     // @TODO: Add or the title or the url here as a property and run this testcase
     // @TODO: By using the title of the page
-    // @TODO:    switchToWebView({title:'(partial) title of the page'});
+    // @TODO:    await switchToWebView({title:'(partial) title of the page'});
     // @TODO: By using the url of the page
-    // @TODO:    switchToWebView({url:'https://www.example.com'});
+    // @TODO:    await switchToWebView({url:'https://www.example.com'});
 
     // Wait for the menu to appear and open it
-    $('.nav-burger').waitForDisplayed();
-    $('.nav-burger').click();
-    $$('.nav-menu-list-item')[0].waitForDisplayed();
+    await $('.nav-burger').waitForDisplayed();
+    await $('.nav-burger').click();
+    await $$('.nav-menu-list-item')[0].waitForDisplayed();
 
     // Now expect that the first menu item will contain the text Solutions
-    expect($$('.nav-menu-list-item')[0].getText()).toEqual('Solutions');
+    await expect(await $$('.nav-menu-list-item')[0].getText()).toEqual(
+      'Solutions'
+    );
   });
 
   // @TODO: as mentioned above, change `it.skip` to `it.only` if you only want to run this test
-  it.skip('should be able to switch to the Open Source context to verify a menu item', () => {
+  it.skip('should be able to switch to the Open Source context to verify a menu item', async () => {
     // Open the Open Source WebView
     $('~test-open-source').click();
 
     // @TODO: Add or the title or the url here as a property and run this testcase
     // @TODO: By using the title of the page
-    // @TODO:    switchToWebView({title:'(partial) title of the page'});
+    // @TODO:    await switchToWebView({title:'(partial) title of the page'});
     // @TODO: By using the url of the page
-    // @TODO:    switchToWebView({url:'https://www.example.com'});
+    // @TODO:    await switchToWebView({url:'https://www.example.com'});
 
     // Wait for the menu to appear and open it
-    $('.navbar-toggler').waitForDisplayed();
-    $('.navbar-toggler').click();
-    $$('.nav-item')[0].waitForDisplayed();
+    await $('.navbar-toggler').waitForDisplayed();
+    await $('.navbar-toggler').click();
+    await $$('.nav-item')[0].waitForDisplayed();
 
     // Now expect that the first menu item will contain the text Solutions
-    expect($$('.nav-item')[0].getText()).toEqual('Home');
+    await expect(await $$('.nav-item')[0].getText()).toEqual('Home');
   });
 });
