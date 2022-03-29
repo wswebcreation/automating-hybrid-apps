@@ -25,21 +25,21 @@
  *
  */
 describe('A HybridApp with `autoWebview: true`', () => {
-  it('should be able to login with web selectors', () => {
+  it('should be able to login with web selectors', async () => {
     // Wait for the screen to be loaded
     // @TODO: find the correct selector of an element that can tell us that the page is loaded
-    $('replace-with-unique-selector').waitForDisplayed();
+    await $('replace-with-unique-selector').waitForDisplayed();
 
     // Submit the form
     // @TODO: find the correct selector to interact with the username field
-    $('replace-with-unique-selector').setValue('standard_user');
+    await $('replace-with-unique-selector').setValue('standard_user');
     // @TODO: find the correct selector to interact with the password field
-    $('replace-with-unique-selector').setValue('secret_sauce');
+    await $('replace-with-unique-selector').setValue('secret_sauce');
     // @TODO: find the correct selector to interact with the login button
-    $('replace-with-unique-selector').click();
+    await $('replace-with-unique-selector').click();
 
     // Wait for the next screen
     // @TODO: find the correct selector of an element that can tell us that the new page is loaded
-    $('replace-with-unique-selector').waitForDisplayed();
+    await $('replace-with-unique-selector').waitForDisplayed();
   });
 });

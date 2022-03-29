@@ -23,32 +23,36 @@
  *
  */
 describe('Checkout Overview', () => {
-  it('should be able to go directly to the Checkout Overview', () => {
+  it('should be able to go directly to the Checkout Overview', async () => {
     // Wait for the screen to be loaded
-    $('#login_button_container').waitForDisplayed();
+    await $('#login_button_container').waitForDisplayed();
 
     // Delete the cookie and clear the local storage
     // @TODO: Check which cookie needs to be removed.
     // @TODO: Replace `{cookie-name}` and `{cookie-value}` with the correct data
-    browser.execute('document.cookie = "{cookie-name}=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;"');
-    browser.execute('localStorage.clear();');
+    await browser.execute(
+      'document.cookie = "{cookie-name}=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;"'
+    );
+    await browser.execute('localStorage.clear();');
 
     // Now set the cookie with the user details
     // @TODO: Check which cookie and which value needs to be set.
     // @TODO: Replace `{cookie-name}` and `{cookie-value}` with the correct data
-    browser.execute('document.cookie="{cookie-name}={cookie-value}";');
+    await browser.execute('document.cookie="{cookie-name}={cookie-value}";');
     // Now set the local storage with the product we want to have
     // @TODO: Check which localStorage and which value needs to be set.
     // @TODO: Replace `{localStorage-name}` and `{localStorage-value}` with the correct data
-    browser.execute('localStorage.setItem("{localStorage-name}", "{localStorage-value}");');
+    await browser.execute(
+      'localStorage.setItem("{localStorage-name}", "{localStorage-value}");'
+    );
 
     // @TODO: Check which url we need to load to get to the checkout overview
     // @TODO: Replace `{correct-url}` with the correct data
     // Now go to the correct url
-    browser.url('{correct-url}');
+    await browser.url('{correct-url}');
 
     // Verify that we are on the Checkout Overview page
-    $('#checkout_summary_container').waitForDisplayed();
+    await $('#checkout_summary_container').waitForDisplayed();
 
     // Do all you verification magic here
   });

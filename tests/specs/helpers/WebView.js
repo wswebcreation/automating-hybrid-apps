@@ -3,14 +3,14 @@
  *
  * @param {string} webview
  */
-export function logWebViews(webview) {
+export async function logWebViews(webview) {
   // For demo purpose we wait 5 seconds for the page to be loaded before we
   // get the contexts. This is normally a bad practice, but we will dive into
   // this in the next test
-  driver.pause(5000);
+  await driver.pause(5000);
   console.log(
     `${driver.isAndroid ? 'Android' : 'iOS'} contexts for ${webview}: `,
-    JSON.stringify(driver.execute('mobile:getContexts'), null, 2),
+    JSON.stringify(await driver.execute('mobile:getContexts'), null, 2)
   );
 }
 
@@ -29,21 +29,23 @@ export function logWebViews(webview) {
  * @param {string} data?.title
  * @param {string} data?.url
  */
-export function switchToWebView({title, url}) {
+export async function switchToWebView({ title, url }) {
   // This method will wait until a condition becomes true. In our case we want
   // to wait until we have a webview that contains our title or url
   // See https://webdriver.io/docs/api/browser/waitUntil/
-  driver.waitUntil(
-    () => {
+  await driver.waitUntil(
+    async () => {
       // Get all the current contexts
-      const contexts = getCurrentContexts();
+      const contexts = await getCurrentContexts();
       const webview = contexts
         // first filter out the `NATIVE_APP` context
-        .filter(context => context.id !== 'NATIVE_APP')
+        .filter((context) => context.id !== 'NATIVE_APP')
         // Now find a matching title,url
-        .find(context => {
+        .find((context) => {
           // Check if the title or url includes our expectation. If so, then return it
-          return title ? context.title.includes(title) : context.url.includes(url);
+          return title
+            ? context.title.includes(title)
+            : context.url.includes(url);
         });
 
       // If we found a matching webview above we will get back an object containing the following
@@ -63,8 +65,8 @@ export function switchToWebView({title, url}) {
       }
 
       // For iOS we can just switch to the webview based on it's webviewId
-      if (driver.isIOS){
-        driver.switchContext(webview.id);
+      if (driver.isIOS) {
+        await driver.switchContext(webview.id);
 
         // Now tell the function that we are done by returning true
         return true;
@@ -72,18 +74,20 @@ export function switchToWebView({title, url}) {
 
       // Android will only have 1 webview for the app, but that webview will contain multiple "tabs/windows"
       // We first need to switch to the webview
-      driver.switchContext(webview.webviewName);
+      await driver.switchContext(webview.webviewName);
       // and now switch to the "tab/window".
-      driver.switchToWindow(webview.id);
+      await driver.switchToWindow(webview.id);
 
       // Now tell the function that we are done by returning true
       return true;
     },
     {
       timeout: 15000,
-      timeoutMsg: `The webview containing ${title ? 'title' : 'url'}: "${title ? title : url}" was not found.`,
+      timeoutMsg: `The webview containing ${title ? 'title' : 'url'}: "${
+        title ? title : url
+      }" was not found.`,
     }
-  )
+  );
 }
 
 /**
@@ -99,11 +103,11 @@ export function switchToWebView({title, url}) {
  *  }[]
  * }
  */
-function getCurrentContexts() {
+async function getCurrentContexts() {
   // Instead of using the method `driver.getContexts` we are going to use this
   // because it will return more data, see also
   // http://appium.io/docs/en/commands/context/get-contexts/
-  const contexts = driver.execute('mobile: getContexts');
+  const contexts = await driver.execute('mobile: getContexts');
 
   // Now return the data
   return driver.isIOS ? contexts : parsedAndroidContexts(contexts);
@@ -176,17 +180,21 @@ function parsedAndroidContexts(contexts) {
   // Android can give back multiple apps that support WebViews, so an array of WebView apps.
   // We know that our webview has the name `WEBVIEW_com.saucelabshybridapp` so we are going to
   // search for it and filter all other apps out.
-  return contexts
-    .filter(webview => webview.webviewName === 'WEBVIEW_com.saucelabshybridapp')[0].pages
-    // The pages array can contain real web pages, but also other types, like service workers.
-    // We only need to have the real web pages, so we filter out all types that are not `type=page`
-    .filter(page => page.type === 'page')
-    // Reconstruct the data so it will be equal to iOS WebView object
-    .map(page => ({
-      // Keep in mind that all "tabs/windows" consist out of `CDwindow-{webviewId}` so we need to add that string
-      id: `CDwindow-${page.id}`,
-      title: page.title,
-      url: page.url,
-      webviewName: contexts[0].webviewName
-    }));
+  return (
+    contexts
+      .filter(
+        (webview) => webview.webviewName === 'WEBVIEW_com.saucelabshybridapp'
+      )[0]
+      .pages // The pages array can contain real web pages, but also other types, like service workers.
+      // We only need to have the real web pages, so we filter out all types that are not `type=page`
+      .filter((page) => page.type === 'page')
+      // Reconstruct the data so it will be equal to iOS WebView object
+      .map((page) => ({
+        // Keep in mind that all "tabs/windows" consist out of `CDwindow-{webviewId}` so we need to add that string
+        id: `CDwindow-${page.id}`,
+        title: page.title,
+        url: page.url,
+        webviewName: contexts[0].webviewName,
+      }))
+  );
 }
