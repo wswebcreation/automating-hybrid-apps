@@ -1,21 +1,23 @@
 describe('iOS HybridApp', () => {
-  it('should be able to login with native selectors', () => {
+  it('should be able to login with native selectors', async () => {
     // Wait for the screen to be loaded
-    $(
+    await $(
       '*//XCUIElementTypeOther[@name="Swag Labs"]/*/XCUIElementTypeTextField'
     ).waitForDisplayed();
 
     // Submit the form
-    $(
+    await $(
       '*//XCUIElementTypeOther[@name="Swag Labs"]/*/XCUIElementTypeTextField'
     ).setValue('standard_user');
-    $(
+    await $(
       '*//XCUIElementTypeOther[@name="Swag Labs"]/*/XCUIElementTypeSecureTextField'
     ).setValue('secret_sauce');
-    $('*//XCUIElementTypeButton[@name="Login"]').click();
+    await $('*//XCUIElementTypeButton[@name="Login"]').click();
 
     // Wait for the next screen
-    $('*//XCUIElementTypeStaticText[@name="PRODUCTS"]').waitForDisplayed();
+    await $(
+      '*//XCUIElementTypeStaticText[@name="PRODUCTS"]'
+    ).waitForDisplayed();
   });
 });
 

@@ -1,15 +1,15 @@
 describe('Android HybridApp', () => {
-  it('should be able to login with native selectors', () => {
+  it('should be able to login with native selectors', async () => {
     // Wait for the screen to be loaded
-    $('*//*[@resource-id="user-name"]').waitForDisplayed();
+    await $('*//*[@resource-id="user-name"]').waitForDisplayed();
 
     // Submit the form
-    $('*//*[@resource-id="user-name"]').setValue('standard_user');
-    $('*//*[@resource-id="password"]').setValue('secret_sauce');
-    $('*//*[@resource-id="login-button"]').click();
+    await $('*//*[@resource-id="user-name"]').setValue('standard_user');
+    await $('*//*[@resource-id="password"]').setValue('secret_sauce');
+    await $('*//*[@resource-id="login-button"]').click();
 
     // Wait for the next screen
-    $('*//*[@text="PRODUCTS"]').waitForDisplayed();
+    await $('*//*[@text="PRODUCTS"]').waitForDisplayed();
   });
 });
 
