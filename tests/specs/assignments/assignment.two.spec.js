@@ -29,7 +29,7 @@ describe('Checkout Overview', () => {
 
     // Delete the cookie and clear the local storage
     // @TODO: Check which cookie needs to be removed.
-    // @TODO: Replace `{cookie-name}` and `{cookie-value}` with the correct data
+    // @TODO: Replace `{cookie-name}` with the correct data
     await browser.execute(
       'document.cookie = "{cookie-name}=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;"'
     );
