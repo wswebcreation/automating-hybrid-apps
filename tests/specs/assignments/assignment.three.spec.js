@@ -83,7 +83,7 @@ describe('A hybrid app with multiple webviews', () => {
 
     // Now switch to the WebView context, we will take the last because as
     // mentioned for iOS we can have multiple webviews
-    await driver.switchContext(await driver.getContexts().pop());
+    await driver.switchContext((await driver.getContexts()).pop());
 
     // Now expect that the first menu item will contain the text Swag Labs from the Swag Labs Webview
     await expect(await driver.getTitle()).toContain('Swag Labs');
